@@ -1,7 +1,11 @@
 {
-  "functions": {
-    "api/copypro.js": {
-      "runtime": "nodejs18.x"
-    }
-  }
+  "version": 2,
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "api/copypro.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/.*", "dest": "/api/copypro.js" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
 }
