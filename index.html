@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucreon - Calculadora de Lucro</title>
+</head>
+<body>
+  <h1>Lucreon</h1>
+  <textarea id="descricao" placeholder="Digite a descrição do produto..."></textarea>
+  <button onclick="botCopyPro()">Processar com Bot 3 (CopyPro)</button>
+  <p><strong>Resultado:</strong> <span id="descricaoFinal">--</span></p>
+
+  <script>
+    async function botCopyPro() {
+      const descricaoBase = document.getElementById("descricao").value;
+      if (!descricaoBase) {
+        alert("Digite uma descrição base antes de usar o CopyPro.");
+        return;
+      }
+
+      const response = await fetch("/api/copypro", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prompt: descricaoBase })
+      });
+
+      const data = await response.json();
+      const resultado = data.result;
+      document.getElementById("descricaoFinal").innerText = resultado;
+      alert("[CopyPro IA]\n\nDescrição gerada com sucesso!\n\n" + resultado);
+    }
+  </script>
+</body>
+</html>
